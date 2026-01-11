@@ -1,5 +1,5 @@
 {{define "title"}}
-Connected Peers
+已连接的节点
 {{end}}
 
 {{define "top_css"}}
@@ -10,7 +10,7 @@ Connected Peers
 {{end}}
 
 {{define "page_title"}}
-Connected Peers
+已连接的节点
 {{end}}
 
 {{define "page_content"}}
@@ -35,7 +35,7 @@ Connected Peers
         {{ end}}
         {{ range $dev := .devices }}
             <table class="table table-sm">
-                <caption>List of connected peers for device with name {{ $dev.Name }} </caption>
+                <caption>设备 {{ $dev.Name }} 的已连接节点列表</caption>
               <thead>
                 <tr>
                   <th scope="col">#</th>

@@ -48,8 +48,8 @@
             <!-- SEARCH FORM -->
             <form class="form-inline ml-3" style="display: none" id="search-form">
                 <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" placeholder="Search"
-                        aria-label="Search" id="search-input">
+                    <input class="form-control form-control-navbar" placeholder="搜索"
+                        aria-label="搜索" id="search-input">
                     <div class="input-group-append">
                         <button class="btn-navbar" type="submit" disabled>
                             <i class="fas fa-search"></i>
@@ -59,11 +59,11 @@
                 <div class="form-group form-group-sm">
                     <select name="status-selector" id="status-selector" class="custom-select form-control-navbar" style="margin-left: 0.5em; height: 90%; font-size: 14px;">
                         <!-- THIS SECTION IS OVERRIDDEN BY JS. SEE updateSearchList() function in clients.html BEFORE EDITING -->
-                        <option value="All">All</option>
-                        <option value="Enabled">Enabled</option>
-                        <option value="Disabled">Disabled</option>
-                        <option value="Connected">Connected</option>
-                        <option value="Disconnected">Disconnected</option>
+                        <option value="All">全部</option>
+                        <option value="Enabled">已启用</option>
+                        <option value="Disabled">已禁用</option>
+                        <option value="Connected">已连接</option>
+                        <option value="Disconnected">已断开</option>
                         <!-- THIS SECTION IS OVERRIDDEN BY JS. SEE updateSearchList() function in clients.html BEFORE EDITING -->
                     </select>
                 </div>
@@ -72,14 +72,14 @@
             <!-- Right navbar links -->
             <div class="navbar-nav ml-auto">
                 <button style="margin-left: 0.5em;" type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                    data-target="#modal_new_client"><i class="nav-icon fas fa-plus"></i> New
-                    Client</button>
+                    data-target="#modal_new_client"><i class="nav-icon fas fa-plus"></i> 新增
+                    客户端</button>
                 <button id="apply-config-button" style="margin-left: 0.5em; display: none;" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                    data-target="#modal_apply_config"><i class="nav-icon fas fa-check"></i> Apply
-                    Config</button>
+                    data-target="#modal_apply_config"><i class="nav-icon fas fa-check"></i> 应用
+                    配置</button>
                 {{if .baseData.CurrentUser}}
                 <button onclick="location.href='{{.basePath}}/logout';" style="margin-left: 0.5em;" type="button"
-                    class="btn btn-outline-danger btn-sm"><i class="nav-icon fas fa-sign-out-alt"></i> Logout</button>
+                    class="btn btn-outline-danger btn-sm"><i class="nav-icon fas fa-sign-out-alt"></i> 退出登录</button>
                 {{end}}
             </div>
         </nav>
@@ -89,7 +89,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{.basePath}}" class="brand-link">
-                <span class="brand-text">&nbsp; WIREGUARD UI</span>
+                <span class="brand-text">&nbsp; WIREGUARD UI 管理台</span>
             </a>
 
             <!-- Sidebar -->
@@ -103,13 +103,13 @@
                         {{if .baseData.CurrentUser}}
 
                         {{if .baseData.Admin}}
-                        <a href="{{.basePath}}/profile" class="d-block">Administrator: {{.baseData.CurrentUser}}</a>
+                        <a href="{{.basePath}}/profile" class="d-block">管理员：{{.baseData.CurrentUser}}</a>
                         {{else}}
-                        <a href="{{.basePath}}/profile" class="d-block">Manager: {{.baseData.CurrentUser}}</a>
+                        <a href="{{.basePath}}/profile" class="d-block">管理者：{{.baseData.CurrentUser}}</a>
                         {{end}}
 
                         {{else}}
-                        <a href="#" class="d-block">Administrator</a>
+                        <a href="#" class="d-block">管理员</a>
                         {{end}}
                     </div>
                 </div>
@@ -117,12 +117,12 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-header">MAIN</li>
+                        <li class="nav-header">主要功能</li>
                         <li class="nav-item">
                             <a href="{{.basePath}}/" class="nav-link {{if eq .baseData.Active ""}}active{{end}}">
                                 <i class="nav-icon fas fa-user-secret"></i>
                                 <p>
-                                    Wireguard Clients
+                                    WireGuard 客户端
                                 </p>
                             </a>
                         </li>
@@ -132,18 +132,18 @@
                             <a href="{{.basePath}}/wg-server" class="nav-link {{if eq .baseData.Active "wg-server" }}active{{end}}">
                                 <i class="nav-icon fas fa-server"></i>
                                 <p>
-                                    Wireguard Server
+                                    WireGuard 服务器
                                 </p>
                             </a>
                         </li>
 
 
-                        <li class="nav-header">SETTINGS</li>
+                        <li class="nav-header">设置</li>
                         <li class="nav-item">
                             <a href="{{.basePath}}/global-settings" class="nav-link {{if eq .baseData.Active "global-settings" }}active{{end}}">
                                 <i class="nav-icon fas fa-cog"></i>
                                 <p>
-                                    Global Settings
+                                    全局设置
                                 </p>
                             </a>
                         </li>
@@ -151,20 +151,21 @@
                         <li class="nav-item">
                             <a href="{{.basePath}}/users-settings" class="nav-link {{if eq .baseData.Active "users-settings" }}active{{end}}">
                             <i class="nav-icon fas fa-cog"></i>
-                            <p>
-                                Users Settings
-                            </p>
+                                <p>
+                                    用户设置
+                                </p>
+
                             </a>
                         </li>
                         {{end}}
                         {{end}}
 
-                        <li class="nav-header">UTILITIES</li>
+                        <li class="nav-header">工具</li>
                         <li class="nav-item">
                             <a href="{{.basePath}}/status" class="nav-link {{if eq .baseData.Active "status" }}active{{end}}">
                                 <i class="nav-icon fas fa-signal"></i>
                                 <p>
-                                    Status
+                                    状态
                                 </p>
                             </a>
                         </li>
@@ -172,17 +173,18 @@
                             <a href="{{.basePath}}/wake_on_lan_hosts" class="nav-link {{if eq .baseData.Active "wake_on_lan_hosts" }}active{{end}}">
                                 <i class="nav-icon fas  fa-solid fa-power-off"></i>
                                 <p>
-                                    WoL Hosts
+                                    网络唤醒主机
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">ABOUT</li>
+                        <li class="nav-header">关于</li>
                         <li class="nav-item">
                             <a href="{{.basePath}}/about" class="nav-link {{if eq .baseData.Active "about" }}active{{end}}">
                             <i class="nav-icon fas  fa-solid fa-id-card"></i>
-                            <p>
-                                About
-                            </p>
+                                <p>
+                                    关于
+                                </p>
+
                             </a>
                         </li>
                     </ul>
@@ -196,7 +198,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">New Wireguard Client</h4>
+                        <h4 class="modal-title">新增 WireGuard 客户端</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -204,52 +206,50 @@
                     <form name="frm_new_client" id="frm_new_client">
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="client_name" class="control-label">Name</label>
+                                <label for="client_name" class="control-label">名称</label>
                                 <input type="text" class="form-control" id="client_name" name="client_name">
                             </div>
                             <div class="form-group">
-                                <label for="client_email" class="control-label">Email</label>
+                                <label for="client_email" class="control-label">邮箱</label>
                                 <input type="text" class="form-control" id="client_email" name="client_email">
                             </div>
                             <div class="form-group">
-                                <label for="subnet_ranges" class="control-label">Subnet range</label>
+                                <label for="subnet_ranges" class="control-label">子网范围</label>
                                 <select id="subnet_ranges" class="select2"
-                                    data-placeholder="Select a subnet range" style="width: 100%;">
+                                    data-placeholder="请选择子网范围" style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="client_allocated_ips" class="control-label">IP Allocation</label>
+                                <label for="client_allocated_ips" class="control-label">IP 分配</label>
                                 <input type="text" data-role="tagsinput" class="form-control" id="client_allocated_ips">
                             </div>
                             <div class="form-group">
-                                <label for="client_allowed_ips" class="control-label">Allowed IPs
+                                <label for="client_allowed_ips" class="control-label">允许的 IP
                                     <i class="fas fa-info-circle" data-toggle="tooltip"
-                                       data-original-title="Specify a list of addresses that will get routed to the
-                                       server. These addresses will be included in 'AllowedIPs' of client config">
+                                        data-original-title="指定需要路由到服务器的一组地址，这些地址会写入客户端配置的 'AllowedIPs' 字段">
                                     </i>
                                 </label>
                                 <input type="text" data-role="tagsinput" class="form-control" id="client_allowed_ips"
                                     value="{{ StringsJoin .client_defaults.AllowedIps "," }}">
                             </div>
                             <div class="form-group">
-                                <label for="client_extra_allowed_ips" class="control-label">Extra Allowed IPs
+                                <label for="client_extra_allowed_ips" class="control-label">额外允许的 IP
                                     <i class="fas fa-info-circle" data-toggle="tooltip"
-                                       data-original-title="Specify a list of addresses that will get routed to the
-                                       client. These addresses will be included in 'AllowedIPs' of WG server config">
+                                        data-original-title="指定需要路由到客户端的一组地址，这些地址会写入 WireGuard 服务端配置的 'AllowedIPs' 字段">
                                     </i>
                                 </label>
                                 <input type="text" data-role="tagsinput" class="form-control" id="client_extra_allowed_ips" value="{{ StringsJoin .client_defaults.ExtraAllowedIps "," }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="client_endpoint" class="control-label">Endpoint</label>
+                                <label for="client_endpoint" class="control-label">端点</label>
                                 <input type="text" class="form-control" id="client_endpoint" name="client_endpoint">
                             </div>
                             <div class="form-group">
                                 <div class="icheck-primary d-inline">
                                     <input type="checkbox" id="use_server_dns" {{ if .client_defaults.UseServerDNS }}checked{{ end }}>
                                     <label for="use_server_dns">
-                                        Use server DNS
+                                        使用服务器 DNS
                                     </label>
                                 </div>
                             </div>
@@ -257,43 +257,41 @@
                                 <div class="icheck-primary d-inline">
                                     <input type="checkbox" id="enabled" {{ if .client_defaults.EnableAfterCreation }}checked{{ end }}>
                                     <label for="enabled">
-                                        Enable after creation
+                                        创建后立即启用
                                     </label>
                                 </div>
                             </div>
                             <details>
-                                <summary><strong>Public and Preshared Keys</strong>
+                                <summary><strong>公钥与预共享密钥</strong>
                                     <i class="fas fa-info-circle" data-toggle="tooltip"
-                                       data-original-title="If you don't want to let the server generate and store the
-                                       client's private key, you can manually specify its public and preshared key here
-                                       . Note: QR code will not be generated">
+                                        data-original-title="如果不希望由服务器生成并保存客户端私钥，可以在此手动提供公钥与预共享密钥。注意：不会生成二维码">
                                     </i>
                                 </summary>
                                 <div class="form-group" style="margin-top: 1rem">
                                     <label for="client_public_key" class="control-label">
-                                        Public Key
+                                        公钥
                                     </label>
-                                    <input type="text" class="form-control" id="client_public_key" name="client_public_key" placeholder="Autogenerated" aria-invalid="false">
+                                    <input type="text" class="form-control" id="client_public_key" name="client_public_key" placeholder="自动生成" aria-invalid="false">
                                 </div>
                                 <div class="form-group">
                                     <label for="client_preshared_key" class="control-label">
-                                        Preshared Key
+                                        预共享密钥
                                     </label>
-                                    <input type="text" class="form-control" id="client_preshared_key" name="client_preshared_key" placeholder="Autogenerated - enter &quot;-&quot; to skip generation">
+                                    <input type="text" class="form-control" id="client_preshared_key" name="client_preshared_key" placeholder="自动生成 - 输入“-”跳过生成">
                                 </div>
                             </details>
                             <details style="margin-top: 0.5rem;">
-                                <summary><strong>Additional configuration</strong>
+                                <summary><strong>附加配置</strong>
                                 </summary>
                                 <div class="form-group">
-                                    <label for="additional_notes" class="control-label">Notes</label>
-                                    <textarea class="form-control" style="min-height: 6rem;" id="additional_notes" name="additional_notes" placeholder="Additional notes about this client"></textarea>
+                                    <label for="additional_notes" class="control-label">备注</label>
+                                    <textarea class="form-control" style="min-height: 6rem;" id="additional_notes" name="additional_notes" placeholder="填写此客户端的补充说明"></textarea>
                                 </div>
                             </details>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">提交</button>
                         </div>
                     </form>
                 </div>
@@ -307,17 +305,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Apply Config</h4>
+                        <h4 class="modal-title">应用配置</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Do you want to write config file and restart WireGuard server?</p>
+                        <p>是否写入配置文件并重启 WireGuard 服务器？</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="apply_config_confirm">Apply</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-danger" id="apply_config_confirm">应用</button>
+
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -347,10 +346,9 @@
         <!--
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>Version</b> {{ .appVersion }}
+                <b>版本</b> {{ .appVersion }}
             </div>
-            <strong>Copyright &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ngoduykhanh/wireguard-ui">Wireguard UI</a>.</strong> All rights
-            reserved.
+            <strong>Copyright &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ngoduykhanh/wireguard-ui">Wireguard UI</a>.</strong> 版权所有。
         </footer>
         -->
         <!-- Control Sidebar -->
