@@ -1,5 +1,5 @@
 {{define "title"}}
-    Wake On Lan Hosts
+    局域网唤醒主机
 {{end}}
 
 {{define "top_css"}}
@@ -10,7 +10,7 @@
 {{end}}
 
 {{define "page_title"}}
-    Wake On Lan Hosts
+    局域网唤醒主机
 {{end}}
 
 {{define "page_content"}}
@@ -22,8 +22,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">New Wake On Lan Host</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title">新建局域网唤醒主机</h4>
+}                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -31,18 +31,18 @@
                     <div class="modal-body">
                         <input type="hidden" id="frm_wake_on_lan_host_old_mac_address" name="old_mac_address">
                         <div class="form-group">
-                            <label for="frm_wake_on_lan_host_name" class="control-label">Name</label>
-                            <input type="text" class="form-control" id="frm_wake_on_lan_host_name" name="name">
+                            <label for="frm_wake_on_lan_host_name" class="control-label">名称</label>
+}                            <input type="text" class="form-control" id="frm_wake_on_lan_host_name" name="name">
                         </div>
                         <div class="form-group">
-                            <label for="frm_wake_on_lan_host_mac_address" class="control-label">Mac Address</label>
-                            <input type="text" class="form-control" id="frm_wake_on_lan_host_mac_address"
+                            <label for="frm_wake_on_lan_host_mac_address" class="control-label">MAC 地址</label>
+}                            <input type="text" class="form-control" id="frm_wake_on_lan_host_mac_address"
                                    name="mac_address">
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary">提交</button>
                     </div>
                 </form>
             </div>
@@ -54,17 +54,18 @@
         <div class="modal-dialog">
             <div class="modal-content bg-danger">
                 <div class="modal-header">
-                    <h4 class="modal-title">Remove</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title">删除</h4>
+}                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-dark" id="remove_wake_on_host_confirm">Apply</button>
-                </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-outline-dark" id="remove_wake_on_host_confirm">应用</button>
+                    </div>
+
             </div>
             <!-- /.modal-content -->
         </div>
@@ -85,16 +86,16 @@
                             <div class="info-box-content">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-outline-success btn-sm"
-                                            data-mac-address="{{ .MacAddress }}">Wake On
+                                            data-mac-address="{{ .MacAddress }}">唤醒
                                     </button>
                                     <button type="button"
                                             class="btn btn-outline-primary btn-sm btn_modify_wake_on_lan_host"
                                             data-toggle="modal" data-target="#modal_wake_on_lan_host"
-                                            data-name="{{ .Name }}" data-mac-address="{{ .MacAddress }}">Edit
+                                            data-name="{{ .Name }}" data-mac-address="{{ .MacAddress }}">编辑
                                     </button>
                                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#modal_remove_wake_on_lan_host"
-                                            data-mac-address="{{ .MacAddress }}">Remove
+                                            data-mac-address="{{ .MacAddress }}">删除
                                     </button>
                                 </div>
                                 <hr>
@@ -104,9 +105,10 @@
                                     <span class="latest-used">
                                         {{ if .LatestUsed }}
                                             {{ .LatestUsed.Format "2006-01-02T15:04:05Z07:00"}}
-                                        {{ else }}
-                                            Unused
-                                        {{ end }}
+                                             {{ else }}
+                                                 未使用
+                                             {{ end }}
+
                                     </span>
                                 </span>
                             </div>

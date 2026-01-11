@@ -1,5 +1,5 @@
 {{define "title"}}
-Wireguard Clients
+WireGuard 客户端
 {{end}}
 
 {{define "top_css"}}
@@ -17,7 +17,7 @@ Wireguard Clients
 {{end}}
 
 {{define "page_title"}}
-Wireguard Clients
+WireGuard 客户端
 {{end}}
 
 {{define "page_content"}}
@@ -34,7 +34,7 @@ Wireguard Clients
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Email Configuration</h4>
+                <h4 class="modal-title">邮件配置</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -43,15 +43,16 @@ Wireguard Clients
                 <div class="modal-body">
                     <input type="hidden" id="e_client_id" name="e_client_id">
                     <div class="form-group">
-                        <label for="e_client_email" class="control-label">Email address</label>
+                        <label for="e_client_email" class="control-label">邮箱地址</label>
                         <input type="text" class="form-control" id="e_client_email" name="e_client_email">
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Send</button>
-                </div>
-            </form>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+
         </div>
         <!-- /.modal-content -->
     </div>
@@ -63,14 +64,15 @@ Wireguard Clients
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">QR Code</h4>
+                <h4 class="modal-title">二维码</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="qr_client_id" name="qr_client_id">
-                <img id="qr_code" class="w-100" style="image-rendering: pixelated;" src="" alt="QR code" />
+                 <img id="qr_code" class="w-100" style="image-rendering: pixelated;" src="" alt="二维码" />
+
                 <!-- do not include FwMark in any client configs: it is INVALID. -->
             </div>
         </div>
@@ -84,7 +86,7 @@ Wireguard Clients
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Telegram Configuration</h4>
+                <h4 class="modal-title">Telegram 配置</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,15 +95,21 @@ Wireguard Clients
                 <div class="modal-body">
                     <input type="hidden" id="tg_client_id" name="tg_client_id">
                     <div class="form-group">
-                        <label for="tg_client_userid" class="control-label">Telegram userid</label>
-                        <input type="text" class="form-control" id="tg_client_userid" name="tg_client_userid">
+                        <label for="_client_telegram_userid" class="control-label">Telegram 用户 ID</label>
+                        <input type="text" class="form-control" id="_client_telegram_userid" name="_client_telegram_userid">
                     </div>
+                    <div class="form-group">
+                        <label for="_additional_notes" class="control-label">备注</label>
+                        <textarea class="form-control" style="min-height: 6rem;" id="_additional_notes" name="_additional_notes" placeholder="关于此客户端的其他备注"></textarea>
+                    </div>
+
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Send</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-success">发送</button>
                 </div>
             </form>
+
         </div>
         <!-- /.modal-content -->
     </div>
@@ -113,7 +121,7 @@ Wireguard Clients
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Client</h4>
+                <h4 class="modal-title">编辑客户端</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -122,41 +130,41 @@ Wireguard Clients
                 <div class="modal-body">
                     <input type="hidden" id="_client_id" name="_client_id">
                     <div class="form-group">
-                        <label for="_client_name" class="control-label">Name</label>
+                        <label for="_client_name" class="control-label">名称</label>
                         <input type="text" class="form-control" id="_client_name" name="_client_name">
                     </div>
                     <div class="form-group">
-                        <label for="_client_email" class="control-label">Email</label>
+                        <label for="_client_email" class="control-label">邮箱</label>
                         <input type="text" class="form-control" id="_client_email" name="client_email">
                     </div>
                     <div class="form-group">
-                        <label for="_subnet_ranges" class="control-label">Subnet range</label>
+                        <label for="_subnet_ranges" class="control-label">子网范围</label>
                         <select id="_subnet_ranges" class="select2"
-                            data-placeholder="Select a subnet range" style="width: 100%;">
-                        </select>
+                            data-placeholder="选择一个子网范围" style="width: 100%;">
+}                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="_client_allocated_ips" class="control-label">IP Allocation</label>
-                        <input type="text" data-role="tagsinput" class="form-control" id="_client_allocated_ips">
+                        <label for="_client_allocated_ips" class="control-label">IP 分配</label>
+}                        <input type="text" data-role="tagsinput" class="form-control" id="_client_allocated_ips">
                     </div>
                     <div class="form-group">
-                        <label for="_client_allowed_ips" class="control-label">Allowed IPs</label>
-                        <input type="text" data-role="tagsinput" class="form-control" id="_client_allowed_ips">
+                        <label for="_client_allowed_ips" class="control-label">允许的 IP</label>
+}                        <input type="text" data-role="tagsinput" class="form-control" id="_client_allowed_ips">
                     </div>
                     <div class="form-group">
-                        <label for="_client_extra_allowed_ips" class="control-label">Extra Allowed IPs</label>
-                        <input type="text" data-role="tagsinput" class="form-control"
+                        <label for="_client_extra_allowed_ips" class="control-label">额外允许的 IP</label>
+}                        <input type="text" data-role="tagsinput" class="form-control"
                                id="_client_extra_allowed_ips">
                     </div>
                     <div class="form-group">
-                        <label for="_client_endpoint" class="control-label">Endpoint</label>
-                        <input type="text" class="form-control" id="_client_endpoint" name="client_endpoint">
+                        <label for="_client_endpoint" class="control-label">端点</label>
+}                        <input type="text" class="form-control" id="_client_endpoint" name="client_endpoint">
                     </div>
                     <div class="form-group">
                         <div class="icheck-primary d-inline">
                             <input type="checkbox" id="_use_server_dns">
                             <label for="_use_server_dns">
-                                Use server DNS
+                                使用服务器 DNS
                             </label>
                         </div>
                     </div>
@@ -164,26 +172,25 @@ Wireguard Clients
                         <div class="icheck-primary d-inline">
                             <input type="checkbox" id="_enabled">
                             <label for="_enabled">
-                                Enable this client
+                                启用该客户端
                             </label>
-                        </div>
+}                        </div>
                     </div>
                     <details>
-                        <summary><strong>Public and Preshared Keys</strong>
+                        <summary><strong>公钥与预共享密钥</strong>
                             <i class="fas fa-info-circle" data-toggle="tooltip"
-                               data-original-title="Update the server stored
-                               client Public and Preshared keys.">
+                               data-original-title="更新服务器保存的客户端公钥与预共享密钥。">
                             </i>
                         </summary>
                         <div class="form-group" style="margin-top: 1rem">
                             <label for="_client_public_key" class="control-label">
-                                Public Key
+                                公钥
                             </label>
                             <input type="text" class="form-control" id="_client_public_key" name="_client_public_key" aria-invalid="false">
                         </div>
                         <div class="form-group">
                             <label for="_client_preshared_key" class="control-label">
-                                Preshared Key
+                                预共享密钥
                             </label>
                             <input type="text" class="form-control" id="_client_preshared_key" name="_client_preshared_key">
                         </div>
@@ -201,10 +208,11 @@ Wireguard Clients
                         </div>
                     </details>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">发送</button>
+                    </div>
+
             </form>
         </div>
         <!-- /.modal-content -->
@@ -224,10 +232,11 @@ Wireguard Clients
             </div>
             <div class="modal-body">
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline-dark" id="pause_client_confirm">Apply</button>
-            </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-dark" id="pause_client_confirm">应用</button>
+                </div>
+}
         </div>
         <!-- /.modal-content -->
     </div>
@@ -246,10 +255,11 @@ Wireguard Clients
             </div>
             <div class="modal-body">
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline-dark" id="remove_client_confirm">Apply</button>
-            </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-dark" id="remove_client_confirm">应用</button>
+                </div>
+}
         </div>
         <!-- /.modal-content -->
     </div>
@@ -350,8 +360,8 @@ Wireguard Clients
                 $(`${elementID} option`).remove();
                 $(elementID).append(
                     $("<option></option>")
-                        .text("Any")
-                        .val("__default_any__")
+                        .text("任意")
+}                        .val("__default_any__")
                 );
                 $.each(data, function(index, item) {
                     $(elementID).append(
@@ -370,23 +380,24 @@ Wireguard Clients
         function updateSearchList() {
             $.getJSON("{{.basePath}}/api/subnet-ranges", null, function(data) {
                 $("#status-selector option").remove();
-                $("#status-selector").append(
-                    $("<option></option>")
-                        .text("All")
-                        .val("All"),
-                    $("<option></option>")
-                        .text("Enabled")
-                        .val("Enabled"),
-                    $("<option></option>")
-                        .text("Disabled")
-                        .val("Disabled"),
-                    $("<option></option>")
-                        .text("Connected")
-                        .val("Connected"),
-                    $("<option></option>")
-                        .text("Disconnected")
-                        .val("Disconnected")
-                );
+                    $("#status-selector").append(
+                        $("<option></option>")
+                            .text("全部")
+                            .val("All"),
+                        $("<option></option>")
+                            .text("已启用")
+                            .val("Enabled"),
+                        $("<option></option>")
+                            .text("已禁用")
+                            .val("Disabled"),
+                        $("<option></option>")
+                            .text("已连接")
+                            .val("Connected"),
+                        $("<option></option>")
+                            .text("未连接")
+                            .val("Disconnected")
+                    );
+}
                 $.each(data, function(index, item) {
                     $("#status-selector").append(
                         $("<option></option>")
@@ -519,8 +530,8 @@ Wireguard Clients
             const client_id = button.data('clientid');
             const client_name = button.data('clientname');
             const modal = $(this);
-            modal.find('.modal-body').text("You are about to disable client " + client_name);
-            modal.find('#pause_client_confirm').val(client_id);
+            modal.find('.modal-body').text("你将禁用客户端 " + client_name);
+}            modal.find('#pause_client_confirm').val(client_id);
         })
 
         // pause_client_confirm button event
@@ -538,8 +549,8 @@ Wireguard Clients
             const client_id = button.data('clientid');
             const client_name = button.data('clientname');
             const modal = $(this);
-            modal.find('.modal-body').text("You are about to remove client " + client_name);
-            modal.find('#remove_client_confirm').val(client_id);
+            modal.find('.modal-body').text("你将删除客户端 " + client_name);
+}            modal.find('#remove_client_confirm').val(client_id);
         })
 
         // remove_client_confirm button event
@@ -556,8 +567,8 @@ Wireguard Clients
                     data: JSON.stringify(data),
                     success: function(data) {
                         $("#modal_remove_client").modal('hide');
-                        toastr.success('Removed client successfully');
-                        const divElement = document.getElementById('client_' + client_id);
+                        toastr.success('已成功删除客户端');
+}                        const divElement = document.getElementById('client_' + client_id);
                         divElement.style.display = "none";
                         updateApplyConfigVisibility()
                     },
@@ -624,8 +635,8 @@ Wireguard Clients
                     success: function (resp) {
                         const client = resp.Client;
 
-                        modal.find(".modal-title").text("Edit Client " + client.name);
-                        modal.find("#_client_id").val(client.id);
+                        modal.find(".modal-title").text("编辑客户端 " + client.name);
+}                        modal.find("#_client_id").val(client.id);
                         modal.find("#_client_telegram_userid").val(client.telegram_userid);
                         modal.find("#_client_name").val(client.name);
                         modal.find("#_client_email").val(client.email);
@@ -693,8 +704,8 @@ Wireguard Clients
                 success: function (resp) {
                     const client = resp.Client;
 
-                    $(".modal-title").text("Scan QR Code for " + client.name + " profile");
-                    QRCodeImg.attr('src', resp.QRCode).show();
+                    $(".modal-title").text("扫描 " + client.name + " 配置的二维码");
+}                    QRCodeImg.attr('src', resp.QRCode).show();
                     QRCodeA.attr('download', resp.Client.name);
                     QRCodeA.attr('href', resp.QRCode).show();
                 },
@@ -719,8 +730,11 @@ Wireguard Clients
                 data: JSON.stringify(data),
                 success: function(resp) {
                     $("#modal_email_client").modal('hide');
-                    toastr.success('Sent email to client successfully');
+                    toastr.success('已成功发送邮件给客户端');
                 },
+
+}
+
                 error: function(jqXHR, exception) {
                     const responseJson = jQuery.parseJSON(jqXHR.responseText);
                     toastr.error(responseJson['message']);
@@ -742,8 +756,9 @@ Wireguard Clients
                 data: JSON.stringify(data),
                 success: function(resp) {
                     $("#modal_telegram_client").modal('hide');
-                    toastr.success('Sent config via telegram to client successfully');
+                    toastr.success('已通过 Telegram 成功发送配置给客户端');
                 },
+}
                 error: function(jqXHR, exception) {
                     const responseJson = jQuery.parseJSON(jqXHR.responseText);
                     toastr.error(responseJson['message']);
@@ -797,7 +812,8 @@ Wireguard Clients
                 data: JSON.stringify(data),
                 success: function(resp) {
                     $("#modal_edit_client").modal('hide');
-                    toastr.success('Updated client successfully');
+                        toastr.success('已成功更新客户端');
+}
                      // Refresh the home page (clients page) after updating successfully
                     location.reload();
                 },
@@ -833,7 +849,7 @@ Wireguard Clients
                 success: function (resp) {
                     const client = resp.Client;
 
-                    modal.find(".modal-title").text("Send config to client " + client.name);
+                    modal.find(".modal-title").text("发送配置到客户端 " + client.name);
                     modal.find("#e_client_id").val(client.id);
                     modal.find("#e_client_email").val(client.email);
                 },
@@ -866,7 +882,7 @@ Wireguard Clients
                 success: function (resp) {
                     const client = resp.Client;
 
-                    modal.find(".modal-title").text("Send config to client " + client.name);
+                    modal.find(".modal-title").text("发送配置到客户端 " + client.name);
                     modal.find("#tg_client_id").val(client.id);
                     modal.find("#tg_client_userid").val(client.telegram_userid);
                 },
@@ -892,7 +908,7 @@ Wireguard Clients
                 },
                 messages: {
                     client_name: {
-                        required: "Please enter a name"
+                        required: "请输入名称"
                     },
                 },
                 errorElement: 'span',
@@ -917,9 +933,9 @@ Wireguard Clients
                 },
                 messages: {
                     e_client_email: {
-                        required: "Please enter an email"
+                        required: "请输入邮箱地址"
                     },
-                },
+}                },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {
                     error.addClass('invalid-feedback');
@@ -942,10 +958,10 @@ Wireguard Clients
                 },
                 messages: {
                     tg_client_userid: {
-                        required: "Please enter a telegram userid",
-                        number: "Please enter a valid telegram userid"
+                        required: "请输入 Telegram 用户 ID",
+                        number: "请输入有效的 Telegram 用户 ID"
                     },
-                },
+}                },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {
                     error.addClass('invalid-feedback');

@@ -1,5 +1,5 @@
 {{ define "title"}}
-Profile
+个人资料
 {{ end }}
 
 {{ define "top_css"}}
@@ -10,7 +10,7 @@ Profile
 {{ end }}
 
 {{ define "page_title"}}
-Profile
+个人资料
 {{ end }}
 
 {{ define "page_content"}}
@@ -22,25 +22,25 @@ Profile
             <div class="col-md-6">
                 <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Update user information</h3>
-                    </div>
+                        <h3 class="card-title">更新用户信息</h3>
+}                    </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form role="form" id="frm_profile" name="frm_profile">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="username" class="control-label">Username</label>
-                                <input type="text" class="form-control" name="username" id="username"
+                                <label for="username" class="control-label">用户名</label>
+}                                <input type="text" class="form-control" name="username" id="username"
                                        value="">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="control-label">Password</label>
+                                <label for="password" class="control-label">密码</label>
                                 <input type="password" class="form-control" name="password" id="password"
-                                       value="" placeholder="Leave empty to keep the password unchanged">
+                                       value="" placeholder="留空则不修改密码">
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success" id="update">Update</button>
+                                <button type="submit" class="btn btn-success" id="update">更新</button>
                             </div>
                         </div>
                     </form>
@@ -92,8 +92,8 @@ Profile
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function (data) {
-                toastr.success("Updated user information successfully");
-                location.reload();
+                toastr.success("已成功更新用户信息");
+}                location.reload();
             },
             error: function (jqXHR, exception) {
                 const responseJson = jQuery.parseJSON(jqXHR.responseText);
@@ -116,8 +116,8 @@ Profile
             },
             messages: {
                 username: {
-                    required: "Please enter a username",
-                }
+                    required: "请输入用户名",
+}                }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {

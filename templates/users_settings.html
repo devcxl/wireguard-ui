@@ -1,5 +1,5 @@
 {{define "title"}}
-Users Settings
+用户设置
 {{end}}
 
 {{define "top_css"}}
@@ -10,7 +10,7 @@ Users Settings
 {{end}}
 
 {{define "page_title"}}
-Users Settings
+用户设置
 {{end}}
 
 {{define "page_content"}}
@@ -25,8 +25,8 @@ Users Settings
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit User</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title">编辑用户</h4>
+}                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -37,27 +37,27 @@ Users Settings
                                name="_previous_user_name">
                     </div>
                     <div class="form-group">
-                        <label for="_user_name" class="control-label">Name</label>
-                        <input type="text" class="form-control" id="_user_name" name="_user_name">
+                        <label for="_user_name" class="control-label">名称</label>
+}                        <input type="text" class="form-control" id="_user_name" name="_user_name">
                     </div>
                     <div class="form-group">
-                        <label for="_user_password" class="control-label">Password</label>
+                        <label for="_user_password" class="control-label">密码</label>
                         <input type="password" class="form-control" id="_user_password" name="_user_password" value=""
-                               placeholder="Leave empty to keep the password unchanged">
+                               placeholder="留空则不修改密码">
                     </div>
                     <div class="form-group">
                         <div class="icheck-primary d-inline">
                             <input type="checkbox" id="_admin">
                             <label for="_admin">
-                                Admin
+                                管理员
                             </label>
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-success">保存</button>
                 </div>
             </form>
         </div>
@@ -71,17 +71,18 @@ Users Settings
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
             <div class="modal-header">
-                <h4 class="modal-title">Remove</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title">删除</h4>
+}                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline-dark" id="remove_user_confirm">Apply</button>
-            </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-dark" id="remove_user_confirm">应用</button>
+                </div>
+
         </div>
         <!-- /.modal-content -->
     </div>
@@ -116,8 +117,8 @@ Users Settings
         let newUserHtml = '<div class="col-sm-2 offset-md-4" style=" text-align: right;">' +
             '<button style="" id="btn_new_user" type="button" class="btn btn-outline-primary btn-sm" ' +
             'data-toggle="modal" data-target="#modal_edit_user" data-username="">' +
-            '<i class="nav-icon fas fa-plus"></i> New User</button></div>';
-        $('h1').parents(".row").append(newUserHtml);
+            '<i class="nav-icon fas fa-plus"></i> 新建用户</button></div>';
+}        $('h1').parents(".row").append(newUserHtml);
     })
 
     // modal_remove_user modal event
@@ -125,8 +126,8 @@ Users Settings
         const button = $(event.relatedTarget);
         const user_name = button.data('username');
         const modal = $(this);
-        modal.find('.modal-body').text("You are about to remove user " + user_name);
-        modal.find('#remove_user_confirm').val(user_name);
+        modal.find('.modal-body').text("你将删除用户 " + user_name);
+}        modal.find('#remove_user_confirm').val(user_name);
     })
 
     // remove_user_confirm button event
@@ -143,11 +144,12 @@ Users Settings
                 data: JSON.stringify(data),
                 success: function (data) {
                     $("#modal_remove_user").modal('hide');
-                    toastr.success('Removed user successfully');
+                    toastr.success('已成功删除用户');
                     const divElement = document.getElementById('user_' + user_name);
                     divElement.style.display = "none";
                     location.reload()
                 },
+
                 error: function (jqXHR, exception) {
                     const responseJson = jQuery.parseJSON(jqXHR.responseText);
                     toastr.error(responseJson['message']);
@@ -174,12 +176,12 @@ Users Settings
                     success: function (resp) {
                         const user = resp;
 
-                        modal.find(".modal-title").text("Edit user " + user.username);
-                        modal.find("#_user_name").val(user.username);
+                        modal.find(".modal-title").text("编辑用户 " + user.username);
+}                        modal.find("#_user_name").val(user.username);
                         modal.find("#_previous_user_name").val(user.username);
                         modal.find("#_user_password").val("");
-                        modal.find("#_user_password").prop("placeholder", "Leave empty to keep the password unchanged")
-                        modal.find("#_admin").prop("checked", user.admin);
+                        modal.find("#_user_password").prop("placeholder", "留空则不修改密码")
+}                        modal.find("#_admin").prop("checked", user.admin);
                     },
                     error: function (jqXHR, exception) {
                         const responseJson = jQuery.parseJSON(jqXHR.responseText);
@@ -187,7 +189,7 @@ Users Settings
                     }
                 });
             } else {
-                modal.find(".modal-title").text("Add new user");
+                modal.find(".modal-title").text("新增用户");
                 modal.find("#_user_name").val("");
                 modal.find("#_previous_user_name").val("");
                 modal.find("#_user_password").val("");
@@ -221,7 +223,7 @@ Users Settings
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (data) {
-                    toastr.success("Updated user information successfully");
+                    toastr.success("已成功更新用户信息");
                     location.reload();
                 },
                 error: function (jqXHR, exception) {
@@ -238,7 +240,7 @@ Users Settings
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (data) {
-                    toastr.success("Created user successfully");
+                    toastr.success("已成功创建用户");
                     location.reload();
                 },
                 error: function (jqXHR, exception) {
