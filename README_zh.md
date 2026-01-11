@@ -9,7 +9,7 @@
 - 友好的图形界面
 - 登录认证
 - 维护额外的客户端信息（姓名、邮箱等）
-- 通过二维码 / 文件 / 邮件 / Telegram 获取客户端配置
+- 通过二维码 / 文件 / 邮件获取客户端配置
 
 ![wireguard-ui 0.3.7](https://user-images.githubusercontent.com/37958026/177041280-e3e7ca16-d4cf-4e95-9920-68af15e780dd.png)
 
@@ -71,10 +71,6 @@ docker-compose up
 | `SMTP_AUTH_TYPE` | SMTP 认证方式，可选：`PLAIN`、`LOGIN`、`NONE` | `NONE` |
 | `SMTP_ENCRYPTION` | 加密方式，可选：`NONE`、`SSL`、`SSLTLS`、`TLS`、`STARTTLS` | `STARTTLS` |
 | `SMTP_HELO` | HELO 消息中使用的主机名。`smtp-relay.gmail.com` 需要设置为非 `localhost` 的值 | `localhost` |
-| `TELEGRAM_TOKEN` | 向客户端分发配置的 Telegram Bot Token | N/A |
-| `TELEGRAM_ALLOW_CONF_REQUEST` | 允许用户通过向 Bot 发送消息获取配置 | `false` |
-| `TELEGRAM_FLOOD_WAIT` | 处理下一次配置请求前的等待分钟数 | `60` |
-
 ### 服务器配置默认值
 
 这些环境变量控制初始化数据库时的服务器默认设置。

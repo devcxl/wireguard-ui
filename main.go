@@ -15,12 +15,11 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
-	"github.com/ngoduykhanh/wireguard-ui/store"
-	"github.com/ngoduykhanh/wireguard-ui/telegram"
 
 	"github.com/ngoduykhanh/wireguard-ui/emailer"
 	"github.com/ngoduykhanh/wireguard-ui/handler"
 	"github.com/ngoduykhanh/wireguard-ui/router"
+	"github.com/ngoduykhanh/wireguard-ui/store"
 	"github.com/ngoduykhanh/wireguard-ui/store/jsondb"
 	"github.com/ngoduykhanh/wireguard-ui/util"
 )
@@ -32,27 +31,24 @@ var (
 	gitRef     = "N/A"
 	buildTime  = fmt.Sprintf(time.Now().UTC().Format("01-02-2006 15:04:05"))
 	// configuration variables
-	flagDisableLogin             = false
-	flagBindAddress              = "0.0.0.0:5000"
-	flagSmtpHostname             = "127.0.0.1"
-	flagSmtpPort                 = 25
-	flagSmtpUsername             string
-	flagSmtpPassword             string
-	flagSmtpAuthType             = "NONE"
-	flagSmtpNoTLSCheck           = false
-	flagSmtpEncryption           = "STARTTLS"
-	flagSmtpHelo                 = "localhost"
-	flagSendgridApiKey           string
-	flagEmailFrom                string
-	flagEmailFromName            = "WireGuard UI"
-	flagTelegramToken            string
-	flagTelegramAllowConfRequest = false
-	flagTelegramFloodWait        = 60
-	flagSessionSecret            = util.RandomString(32)
-	flagSessionMaxDuration       = 90
-	flagWgConfTemplate           string
-	flagBasePath                 string
-	flagSubnetRanges             string
+	flagDisableLogin       = false
+	flagBindAddress        = "0.0.0.0:5000"
+	flagSmtpHostname       = "127.0.0.1"
+	flagSmtpPort           = 25
+	flagSmtpUsername       string
+	flagSmtpPassword       string
+	flagSmtpAuthType       = "NONE"
+	flagSmtpNoTLSCheck     = false
+	flagSmtpEncryption     = "STARTTLS"
+	flagSmtpHelo           = "localhost"
+	flagSendgridApiKey     string
+	flagEmailFrom          string
+	flagEmailFromName      = "WireGuard UI"
+	flagSessionSecret      = util.RandomString(32)
+	flagSessionMaxDuration = 90
+	flagWgConfTemplate     string
+	flagBasePath           string
+	flagSubnetRanges       string
 )
 
 const (
@@ -87,9 +83,6 @@ func init() {
 	flag.StringVar(&flagSmtpAuthType, "smtp-auth-type", util.LookupEnvOrString("SMTP_AUTH_TYPE", flagSmtpAuthType), "SMTP Auth Type : PLAIN, LOGIN or NONE.")
 	flag.StringVar(&flagEmailFrom, "email-from", util.LookupEnvOrString("EMAIL_FROM_ADDRESS", flagEmailFrom), "'From' email address.")
 	flag.StringVar(&flagEmailFromName, "email-from-name", util.LookupEnvOrString("EMAIL_FROM_NAME", flagEmailFromName), "'From' email name.")
-	flag.StringVar(&flagTelegramToken, "telegram-token", util.LookupEnvOrString("TELEGRAM_TOKEN", flagTelegramToken), "Telegram bot token for distributing configs to clients.")
-	flag.BoolVar(&flagTelegramAllowConfRequest, "telegram-allow-conf-request", util.LookupEnvOrBool("TELEGRAM_ALLOW_CONF_REQUEST", flagTelegramAllowConfRequest), "Allow users to get configs from the bot by sending a message.")
-	flag.IntVar(&flagTelegramFloodWait, "telegram-flood-wait", util.LookupEnvOrInt("TELEGRAM_FLOOD_WAIT", flagTelegramFloodWait), "Time in minutes before the next conf request is processed.")
 	flag.StringVar(&flagWgConfTemplate, "wg-conf-template", util.LookupEnvOrString("WG_CONF_TEMPLATE", flagWgConfTemplate), "Path to custom wg.conf template.")
 	flag.StringVar(&flagBasePath, "base-path", util.LookupEnvOrString("BASE_PATH", flagBasePath), "The base path of the URL")
 	flag.StringVar(&flagSubnetRanges, "subnet-ranges", util.LookupEnvOrString("SUBNET_RANGES", flagSubnetRanges), "IP ranges to choose from when assigning an IP for a client.")
@@ -145,11 +138,6 @@ func init() {
 	util.SubnetRanges = util.ParseSubnetRanges(flagSubnetRanges)
 
 	lvl, _ := util.ParseLogLevel(util.LookupEnvOrString(util.LogLevel, "INFO"))
-
-	telegram.Token = flagTelegramToken
-	telegram.AllowConfRequest = flagTelegramAllowConfRequest
-	telegram.FloodWait = flagTelegramFloodWait
-	telegram.LogLevel = lvl
 
 	// print only if log level is INFO or lower
 	if lvl <= log.INFO {
@@ -241,7 +229,6 @@ func main() {
 	app.POST(util.BasePath+"/new-client", handler.NewClient(db), handler.ValidSession, handler.ContentTypeJson)
 	app.POST(util.BasePath+"/update-client", handler.UpdateClient(db), handler.ValidSession, handler.ContentTypeJson)
 	app.POST(util.BasePath+"/email-client", handler.EmailClient(db, sendmail, defaultEmailSubject, defaultEmailContent), handler.ValidSession, handler.ContentTypeJson)
-	app.POST(util.BasePath+"/send-telegram-client", handler.SendTelegramClient(db), handler.ValidSession, handler.ContentTypeJson)
 	app.POST(util.BasePath+"/client/set-status", handler.SetClientStatus(db), handler.ValidSession, handler.ContentTypeJson)
 	app.POST(util.BasePath+"/remove-client", handler.RemoveClient(db), handler.ValidSession, handler.ContentTypeJson)
 	app.GET(util.BasePath+"/download", handler.DownloadClient(db), handler.ValidSession)
@@ -268,13 +255,6 @@ func main() {
 	assetHandler := http.FileServer(http.FS(assetsDir))
 	// serves other static files
 	app.GET(util.BasePath+"/static/*", echo.WrapHandler(http.StripPrefix(util.BasePath+"/static/", assetHandler)))
-
-	initDeps := telegram.TgBotInitDependencies{
-		DB:                             db,
-		SendRequestedConfigsToTelegram: util.SendRequestedConfigsToTelegram,
-	}
-
-	initTelegram(initDeps)
 
 	if strings.HasPrefix(util.BindAddress, "unix://") {
 		// Listen on unix domain socket.
@@ -326,15 +306,4 @@ func initServerConfig(db store.IStore, tmplDir fs.FS) {
 	if err != nil {
 		log.Fatalf("Cannot create server config: %v", err)
 	}
-}
-
-func initTelegram(initDeps telegram.TgBotInitDependencies) {
-	go func() {
-		for {
-			err := telegram.Start(initDeps)
-			if err == nil {
-				break
-			}
-		}
-	}()
 }
